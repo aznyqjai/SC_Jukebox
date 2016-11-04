@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SoundCloudJukeBox</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
+	<script src="app.js"> </script>
+</head>
+<body>
+	<div> 
+		<h1> SoundcloudJukeBox</h1>
+		<div>
+			<input id="search" type="text" placeholder="What would you like to listen?">
+			<input id="submit" type="submit" value="Search Song" onclick="jukebox.search()">
+		</div>
+
+		<div id="controlbox">
+			<button id="play" onclick="jukebox.play()">Play</button>
+			<button id="pause" onclick="jukebox.pause()">Pause</button>
+			<!-- <button id="stop" onclick="jukebox.stop()">Stop</button> -->
+			<button id="next" onclick="jukebox.next()"> Next</button>
+			<button id="random" onclick="jukebox.random()">Random</button>
+		</div>
+
+		<div id="meta_data">
+			<h4 id="artist">Artist</h4>
+			<h4 id="title"> Title</h4>
+			<h4 id="description"> Description </h4>
+			<h4 id="genre"> Genre </h4>
+			<h4 id="release_date"> Released Date </h4>
+			<h4 id="poster"> Poster </h4>
+		</div>
+
+		<div id="playlist">
+		</div>
+	</div>
+</body>
+</html>
