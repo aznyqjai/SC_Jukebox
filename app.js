@@ -16,23 +16,29 @@ function JukeBox(){
   this.song_w_methods;
 
   this.search=function(keyword){
+    $("#searchlist").html("");
     var that = this;
     keyword= $("#search").val();
     console.log("keyword is:  "+ keyword);
     SC.get("/tracks", {q: keyword }).then(function(response){
-      that.songs = response;  
+      that.songs = response; 
+      for (var i=0; i<response.length; i++){
+      $("#searchlist").append(response[i].title+"<br>");
+    };
     });
+
   }
+
 
   this.play=function(){
     var target=this.songs[this.current_Song_index];
     console.log("play() fires and playing " + this.songs[this.current_Song_index].title);
+    $("#poster").html("<img src="+"\""+target.artwork_url+"\">");
     $("#artist").html(target.user.username);
     $("#title").html(target.title);
     $("#description").html(target.description);
     $("#genre").html(target.genre);
     $("#release_date").html(target.release);
-    $("#poster").html(target.artwork_url);
     SC.stream( '/tracks/' + target.id ).then(function(player){
       this.song_w_methods=player;
       this.song_w_methods.play();
@@ -72,6 +78,3 @@ function JukeBox(){
   }
 
 }
-
-  console.log("connection made: ");
-//  juke = new JukeBox();
