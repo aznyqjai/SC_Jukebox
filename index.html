@@ -2,25 +2,27 @@
 <html>
 <head>
 	<title>SoundCloudJukeBox</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script src="https://connect.soundcloud.com/sdk/sdk-3.1.2.js"></script>
 	<script src="app.js"> </script>
 </head>
 <body>
-	<div> 
+	<div id="juke"> 
 		<h1> SoundcloudJukeBox</h1>
 		<div>
-			<input id="search" type="text" placeholder="What would you like to listen?">
-			<input id="submit" type="submit" value="Search Song" onclick="jukebox.search()">
+			<input id="search" type="text" placeholder="What to listen?">
+			<input id="submit" class="btn btn-default btn-sm" type="submit" value="Search Song" onclick="jukebox.search()">
 		</div>
 
 		<div id="controlbox">
-			<button id="play" onclick="jukebox.play()">Play</button>
-			<button id="pause" onclick="jukebox.pause()">Pause</button>
+			<button class="btn btn-default btn-sm" id="play" onclick="jukebox.play()"><span class="glyphicon glyphicon-play"> </span> Play</button>
+			<button class="btn btn-default btn-sm" id="pause" onclick="jukebox.pause()"><span class="glyphicon glyphicon-pause"> </span>Pause</button>
 			<!-- <button id="stop" onclick="jukebox.stop()">Stop</button> -->
-			<button id="next" onclick="jukebox.next()"> Next</button>
-			<button id="random" onclick="jukebox.random()">Random</button>
+			<button class="btn btn-default btn-sm" id="previous" onclick="jukebox.previous()"> <span class="glyphicon glyphicon-step-backward"></span> Previous </button>
+			<button class="btn btn-default btn-sm" id="next" onclick="jukebox.next()"> <span class="glyphicon glyphicon-step-forward"></span> Next</button>
+			<button class="btn btn-default btn-sm" id="random" onclick="jukebox.random()"><span class="glyphicon glyphicon-random"></span> Random</button>
 		</div>
 
 

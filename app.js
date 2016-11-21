@@ -13,9 +13,15 @@ var jukebox = new JukeBox();
 function JukeBox(){
   this.songs =[]; 
   this.current_Song_index = 0; 
-  this.song_w_methods;
+  this.player;
+  this.playerArr=[];
+  this.playerArrIndex=0;
 
   this.search=function(keyword){
+    this.songs=[];
+    this.current_Song_index = 0; 
+    this.player;
+    this.playerArr=[];
     $("#searchlist").html("");
     var that = this;
     keyword= $("#search").val();
@@ -23,7 +29,7 @@ function JukeBox(){
     SC.get("/tracks", {q: keyword }).then(function(response){
       that.songs = response; 
       for (var i=0; i<response.length; i++){
-      $("#searchlist").append(response[i].title+"<br>");
+      $("#searchlist").append(i + ":   "+ response[i].title+"  "+response[i].duration+"<br>");
     };
     });
 
@@ -31,8 +37,10 @@ function JukeBox(){
 
 
   this.play=function(){
+    console.log("begin of play:  "  + this.player);
+    var that=this;
     var target=this.songs[this.current_Song_index];
-    console.log("play() fires and playing " + this.songs[this.current_Song_index].title);
+    console.log("play() fires and playing index " +this.current_Song_index+ " :  " + this.songs[this.current_Song_index].title);
     $("#poster").html("<img src="+"\""+target.artwork_url+"\">");
     $("#artist").html(target.user.username);
     $("#title").html(target.title);
@@ -40,13 +48,19 @@ function JukeBox(){
     $("#genre").html(target.genre);
     $("#release_date").html(target.release);
     SC.stream( '/tracks/' + target.id ).then(function(player){
-      this.song_w_methods=player;
-      this.song_w_methods.play();
-      this.song_w_methods.on("finish",function(){
-       // debugger;
-        this.jukebox.next();
-       // debugger;
-      });
+      that.playerArr.push(player);
+      that.playerArrIndex+=1;
+      //this.player=player;
+      //this.playerArr.push(player);
+      that.playerArr[that.current_Song_index].play();
+      
+      //console.log("acutual song:  "+ this.player);
+      // this.player.on("finish",function(){
+      //  // // debugger;
+      //  console.log("current scope" + this);
+      //   that.next();
+      //  // debugger;
+      // });
     });
   }
 
@@ -62,11 +76,20 @@ function JukeBox(){
     }
   }
 
-
+  this.previous=function(){
+    if (this.current_Song_index===0){
+      this.current_Song_index=0;
+      this.play();
+    }
+    else {
+      this.current_Song_index-=1;
+      this.play();
+    }
+  }
 
   this.pause=function(){
     console.log("pause() fired");
-    song_w_methods.pause();
+    this.playerArr[this.current_Song_index].pause();
   }
 
   this.random=function(){
